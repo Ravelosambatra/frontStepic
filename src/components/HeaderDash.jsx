@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SidebarTrigger } from './ui/sidebar'
 import { useAuth } from '@/service/AuthContext'
-import { UserRound, LogOut, Edit, Edit2Icon } from 'lucide-react'
+import { UserRound, LogOut, Edit, Edit2Icon, Calendar1Icon } from 'lucide-react'
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger, 
 } from './ui/dropdown-menu'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Button } from './ui/button'
 import ModifModalPassword from './Dash/Modals/mdp/ModifModalPassword'
 import ModifModalImage from './Dash/Modals/mdp/ModifModalImage'
@@ -19,6 +19,76 @@ import { createData, patchFormData } from '@/service/api'
 function HeaderDash() {
   const { username, role, userImage, logout, userEmail, userId, updateUserImage: updateContextImage } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const [currentTime, setCurrentTime] = useState(new Date())
+
+  const getPageTitle = (pathname) => {
+    const pathSegment = pathname.split('/')[2] || ''
+
+    switch (pathSegment) {
+      case '':
+        return 'Tableau de bord';
+      case 'dashUtilisateur':
+        return 'Utilisateurs';
+      case 'dashInscription':
+        return 'Inscriptions';
+      case 'dashCommande':
+        return 'Commandes';
+      case 'dashCategorie':
+        return 'Catégories';
+      case 'dashOffre':
+        return 'Offres';
+      case 'dashProjet':
+        return 'Projets';
+      case 'dashVideo':
+        return 'Showreels';
+      case 'dashAbout':
+        return 'A Propos';
+      case 'dashTemoin':
+        return 'Témoignages';
+      case 'dashActualite':
+        return 'Actualités';
+      case 'dashEquipe':
+        return 'Equipes';
+      case 'dashPresse':
+        return 'Presses';
+      case 'dashMessage':
+        return 'Messages';
+    }
+  }
+
+  const pageTitle = getPageTitle(location.pathname);
+
+  useEffect(() => {
+    const updateTime = () => {
+
+      setCurrentTime(new Date())
+    }
+
+    const timerId = setInterval(updateTime, 1000)
+
+    return () => clearInterval(timerId)
+  }, [])
+
+  const formatTimeManual = (date) => {
+    // 1. Récupère le nom du jour en minuscules
+    const dayName = date.toLocaleDateString('fr-FR', { weekday: 'long' }).toUpperCase();
+    
+    // 2. Récupère les autres éléments
+    const dayOfMonth = date.toLocaleDateString('fr-FR', { day: 'numeric' });
+    const monthName = date.toLocaleDateString('fr-FR', { month: 'long' });
+    const year = date.toLocaleDateString('fr-FR', { year: 'numeric' });
+    
+    const time = date.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false // S'assure d'avoir le format 24h
+    });
+
+    return `${dayName}, ${dayOfMonth} ${monthName} ${year} - ${time}`;
+  };
 
   const imgProfil = userImage ? userImage : "https://www.gravatar.com/avatar/?d=mp&s=150"
 
@@ -84,12 +154,22 @@ function HeaderDash() {
 
   return (
     <div className='w-full bg-white h-[80px] px-7 text-black flex items-center justify-between gap-2'>
+       <div className='flex items-center gap-4'>
         <SidebarTrigger className="border-none hover:bg-white"/>
+        {/* AJOUTEZ CECI */}
+        {/* <h2 className='text-xl font-semibold'>{pageTitle}</h2>  */}
+        <span className='text-gray-500'>Dashboard /</span><span className='font-semibold'>{pageTitle}</span>
+      </div>
+
+        <div className='flex gap-2'> 
+          <Calendar1Icon size={20} />
+          <span>{formatTimeManual(currentTime)}</span>
+        </div>
 
         <div className='flex justify-between gap-4 items-center'>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <div className='h-10 w-10 rounded-full border border-black flex items-center justify-center'>
+              <div className='h-10 w-10 rounded-full flex items-center justify-center'>
                 <img src={imgProfil} className='h-10 w-10 rounded-full object-cover border border-gray-200 shadow-sm cursor-pointer'/>
               </div>
             </DropdownMenuTrigger>
@@ -115,9 +195,9 @@ function HeaderDash() {
                 <span>Changer le mot de passe</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className='mb-2'>
+              <DropdownMenuItem className='mb-2 cursor-pointer' onSelect={handleLogOut}>
                 <LogOut className="mr-2 h-4 w-4"/>
-                <Button variant="link" onClick={handleLogOut} className='cursor-pointer ml-0'>Déconnexion</Button>
+                <span>Déconnexion</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

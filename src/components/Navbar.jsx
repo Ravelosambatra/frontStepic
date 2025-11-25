@@ -48,8 +48,7 @@ function Navbar() {
 
   return (
     <header
-      className="fixed top-0 left-0 w-full h-[80px] px-6 sm:px-12 lg:px-32 flex justify-between items-center
-                bg-transparent backdrop-blur-lg shadow-[0_8px_25px_rgba(0,0,0,0.2)] z-50 transition-all duration-300"
+      className="fixed top-0 left-0 w-full h-[80px] px-6 sm:px-12 lg:px-32 flex justify-between items-center bg-transparent backdrop-blur-lg shadow-[0_8px_25px_rgba(0,0,0,0.2)] z-50 transition-all duration-300"
     >
       {/* ... (votre code logo inchangé) ... */}
       <div className="flex items-center gap-2">
@@ -91,14 +90,14 @@ function Navbar() {
       </nav>
 
       {/* Bouton Se connecter (inchangé) */}
-      <div className="hidden lg:block">
+      {/* <div className="hidden lg:block">
         <button
           onClick={() => navigate("/login")}
           className="flex items-center justify-center gap-2 px-6 py-2 rounded-full text-[#0B1D5D] border border-[#0B1D5D] hover:bg-[#0B1D5D] hover:text-white font-semibold shadow-lg transition-all duration-300 cursor-pointer h-14 md:h-12 w-48"
         >
           Se connecter <FaArrowRight />
         </button>
-      </div>
+      </div> */}
 
       {/* Menu hamburger mobile (inchangé) */}
       <div
@@ -130,7 +129,7 @@ function Navbar() {
           ))}
         </ul>
         {/* ... (votre bouton de connexion mobile inchangé) ... */}
-        <button
+        {/* <button
           onClick={() => {
             navigate("/login");
             toggleMenu();
@@ -140,7 +139,7 @@ function Navbar() {
                       shadow-lg transition-all duration-300 mt-10"
         >
           Se connecter <FaArrowRight />
-        </button>
+        </button> */}
       </div>
     </header>
   );

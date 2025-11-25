@@ -26,13 +26,13 @@ const OffreCard = ({ section }) => {
 return (
   // Conteneur principal : Fond blanc, coins arrondis, ombre subtile, pas de dégradé.
   <div 
-    className="relative w-full sm:max-w-sm md:max-w-md rounded-lg overflow-hidden border border-gray-200 shadow-md transition-shadow duration-300 hover:shadow-xl cursor-pointer mx-auto pb-2 h-full"
+    className="relative w-full sm:max-w-sm md:max-w-md rounded-lg overflow-hidden border border-gray-200 shadow-md transition-shadow duration-300 hover:shadow-xl cursor-pointer mx-auto pb-2 h-auto hover:border hover:border-[#8a2be2] group"
     // Rendre toute la carte cliquable (comme edX)
     onClick={redirect} 
   >
     <div className="bg-white rounded-lg text-center flex flex-col items-center h-full">
 
-      <div className='relative w-full h-40 bg-gray-50 flex flex-col justify-center items-center p-4'>
+      <div className='relative w-full h-40 bg-white flex flex-col justify-center items-center p-4 group-hover:bg-[#8a2be2] transition-all duration-300'>
         
         {/* Simulation d'un logo de marque (optionnel, comme sur les cartes edX) */}
         {/* <div className="absolute top-2 left-2 p-1">
@@ -40,12 +40,14 @@ return (
         </div> */}
 
         {/* Image du cours/contenu (ex: le nuage Google) */}
-        <img
-          src={section.image}
-          alt={section.nom}
-          // Retrait du rounded-full et ajustement de la taille pour le bandeau
-          className="w-4/5 h-auto object-contain max-h-24 mt-2" 
-        />
+        <div className="bg-white flex items-center justify-center rounded-full w-30 h-30">
+          <img
+            src={section.image}
+            alt={section.nom}
+            // Retrait du rounded-full et ajustement de la taille pour le bandeau
+            className="w-4/5 h-auto object-contain max-h-24 mt-2" 
+          />
+        </div>
       </div>
       
       {/* 2. Détails du Texte - Fond Blanc */}
@@ -77,9 +79,10 @@ return (
           px-6 py-2 rounded-full 
           text-white font-semibold 
           bg-gradient-to-r from-[#8a2be2] to-[#6c63ff] hover:from-[#6c63ff] hover:to-[#8a2be2] 
-          shadow-lg transition-colors duration-300 cursor-pointer w-auto mt-4 text-sm"
+          shadow-lg transition-colors duration-300 cursor-pointer w-[50%] mt-4 text-sm"
         >
-          {section.button} <FaLongArrowAltRight />
+          {section.button}
+          {/* {section.button} <FaLongArrowAltRight /> */}
         </button> 
       </div>
      

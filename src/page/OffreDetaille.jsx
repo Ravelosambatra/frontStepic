@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OffreDetaille = () => {
 
   const [activeTab, setActiveTab] = useState("Stratégie & Conseil");
+  const navigate = useNavigate()
 
   const menuItems = [
     { name: "Stratégie & Conseil", icon: Compass, link: "" },
@@ -34,7 +36,7 @@ const OffreDetaille = () => {
 
   const handleSelectChange = (event) => {
     const selectedLink = event.target.value;
-    const selectedTab = mainTabs.find(tab => tab.link === selectedLink);
+    const selectedTab = menuItems.find(tab => tab.link === selectedLink);
     
     if (selectedTab) {
       setActiveTab(selectedTab.name); // Mettre à jour l'état

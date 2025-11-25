@@ -45,12 +45,16 @@ function ContactPage() {
   }
 
   return (
-    <div id="contact" className="py-16 px-6 lg:px-20 bg-white">
+    <div id="contact" className="py-16 px-6 lg:px-20 bg-white pt-30">
       <div className="max-w-6xl mx-auto">
         <H2 className="text-3xl md:text-4xl text-center mb-12 text-gray-900 font-bold drop-shadow-lg">
           Contactez-nous
         </H2>
 
+        <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+          Parlez-nous de votre projet ou posez-nous vos questions. Notre équipe vous répondra dans les plus brefs délais.
+        </p>
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
           {/* Conteneur externe avec bordure en dégradé */}
